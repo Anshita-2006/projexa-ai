@@ -3,9 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Global Air Quality Monitor - Professional AQI Analysis</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Leaflet CSS CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- GSAP CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- Particles.js CDN -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 </head>
 <body>
-    <h1>hey</h1>
+    <!-- Animated Background Sections -->
+    <div id="particles-js" class="particles"></div>
+    <!-- Left Sidebar Animation -->
+    <div class="sidebar-animation">
+        <div class="floating-card">AQI Monitor</div>
+        <div class="floating-card delay-1">Live Data</div>
+        <div class="floating-card delay-2">India Focus</div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">🌍 AirQuality Pro</div>
+<ul class="nav-links">
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#map">Map</a></li>
+                <li><a href="#trends">Trends</a></li>
+            </ul>
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="🔍 Search cities, states, countries..." autocomplete="off">
+                <button id="clearSearch" class="clear-btn" style="display: none;">✕</button>
+            </div>
+            <div id="searchResults" class="search-results hidden"></div>
+            <div class="theme-toggle">
+                <span class="theme-icon">🌙</span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Real-Time Global Air Quality Insights</h1>
+            <p class="hero-subtitle">Monitor pollution trends, identify sources, and predict future AQI with precision data from every city, state, and country worldwide.</p>
+            <div class="global-aqi">
+                <div class="aqi-gauge">
+                    <canvas id="globalAqiGauge"></canvas>
+                </div>
+                <div class="aqi-stats">
+                    <div class="stat">Global Avg AQI: <span id="globalAvg">142</span></div>
+                    <div class="stat">Polluted Cities: <span id="pollutedCities">2478</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="dashboard">
+        <h2>Live Dashboard</h2>
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3>PM2.5 Levels</h3>
+                <canvas id="pm25Chart"></canvas>
+            </div>
+            <div class="card">
+                <h3>NO2 Trends</h3>
+                <canvas id="no2Chart"></canvas>
+            </div>
+            <div class="card">
+                <h3>Top Polluted Cities</h3>
+                <ul id="topCities"></ul>
+            </div>
+            <div class="card">
+                <h3>Pollution Sources</h3>
+                <canvas id="sourcesChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- World Map Section -->
+    <section id="map" class="map-section">
+        <h2>Interactive World Map</h2>
+        <p>Click any country, state, or city marker to view detailed AQI analysis.</p>
+        <div id="worldMap" class="world-map"></div>
+        <div class="map-controls">
+            <button id="zoomIndia" class="map-btn india-btn">🇮🇳 India View</button>
+            <button id="resetMap" class="map-btn">🌍 World View</button>
+        </div>
+        <div class="map-legend">
+            <div class="legend-item good">Good (0-50)</div>
+            <div class="legend-item moderate">Moderate (51-100)</div>
+            <div class="legend-item unhealthy">Unhealthy (101-150)</div>
+            <div class="legend-item bad">Bad (151-200)</div>
+            <div class="legend-item hazardous">Hazardous (201+)</div>
+        </div>
+    </section>
+
+    <!-- Location Details Panel -->
+    <div id="locationPanel" class="location-panel hidden">
+        <h3 id="locationName">Select a location</h3>
+        <div class="location-aqi">
+            <canvas id="locationGauge"></canvas>
+        </div>
+        <div class="location-charts">
+            <canvas id="locationTrend"></canvas>
+        </div>
+<div class="location-info">
+            <p><strong>🌡️ AQI:</strong> <span id="pm25Val">-</span></p>
+            <p><strong>PM2.5:</strong> <span id="no2Val">-</span> µg/m³</p>
+            <p><strong>NO2:</strong> <span id="o3Val">-</span> ppb</p>
+            <p><strong>O₃:</strong> <span id="extraVal">-</span> ppb</p>
+            <div id="pollutionStatus">-</div>
+            <div id="environment">-</div>
+            <div id="mausam">-</div>
+            <p><strong>24h Prediction:</strong> <span id="prediction">-</span></p>
+        </div>
+    </div>
+
+    <!-- Trends & Predictions Section -->
+    <section id="trends" class="trends-section">
+        <h2>Pollution Trends & Predictions</h2>
+        <div class="trends-grid">
+            <div class="card">
+                <h3>Global Trends</h3>
+                <canvas id="globalTrendsChart"></canvas>
+            </div>
+            <div class="card">
+                <h3>AI Predictions</h3>
+                <canvas id="predictionChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 AirQuality Pro. Powered by real-time global data.</p>
+    </footer>
+
+    <!-- Leaflet JS CDN -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
